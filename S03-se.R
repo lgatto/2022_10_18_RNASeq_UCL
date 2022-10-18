@@ -39,3 +39,58 @@ se2 <- airway[i, j]
 
 assay(se2)
 
+## row ranges
+
+rowRanges(airway)
+
+rowRanges(airway)[[1]]
+
+## build your SE
+
+fls <- dir("wsbim2122_data/count_data/", 
+    full.names = TRUE)
+
+tmp <- head(read.delim(fls[1]), 10)
+
+View(tmp)
+
+dim(read.delim(fls[1]))
+
+m <- sapply(fls, 
+                 function(f) 
+                   read.delim(f)[, 7])
+
+class(counts)
+dim(counts)
+m[1:5, 1:3]
+
+colnames(m) <- paste0("sample", 1:6)
+rownames(m) <- read.delim(fls[1])[, 1]
+
+cd <- data.frame(sample = 1:6, 
+                 group = rep(c("A", "B"),
+                             each = 3),
+                 row.names = colnames(counts))
+cd
+
+colnames(counts)
+
+## cd <- read.csv("myColData.csv")
+
+se <- SummarizedExperiment(
+  assays = list(counts = m),
+  colData = cd)
+
+se
+se <- SummarizedExperiment(
+  assays = list(counts = m),
+  colData = cd, 
+  rowData = rd)
+
+colData(se)
+se
+
+## ~ group
+
+rowData(se)
+
